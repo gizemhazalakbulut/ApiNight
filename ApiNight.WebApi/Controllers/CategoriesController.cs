@@ -1,4 +1,5 @@
 ﻿using ApiNight.BusinessLayer.Abstract;
+using ApiNight.EntityLayer.Concrete;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,6 +19,34 @@ namespace ApiNight.WebApi.Controllers
         {
             var values = _categoryService.TGetAll();
             return Ok(values);
+        }
+
+        [HttpPost]
+        public IActionResult CategoryAdd(Category category)
+        {
+            _categoryService.TAdd(category);
+            return Ok("Ekleme işlemi başarılı");
+        }
+
+        [HttpDelete]
+        public IActionResult DeleteCategory(int id)
+        {
+            _categoryService.TDelete(id);
+            return Ok("Silme işlemi başarılı");
+        }
+
+        [HttpGet("GetCategory")]
+        public IActionResult GetCategory(int id)
+        {
+            var value = _categoryService.TGetById(id);
+            return Ok(value);
+        }
+
+        [HttpPut]
+        public IActionResult UpdateCategory(Category category)
+        {
+            _categoryService.TUpdate(category);
+            return Ok("Güncelleme işlemi başarılı");
         }
     }
 }
