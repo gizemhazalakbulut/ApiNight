@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ApiNight.DataAccessLayer.Migrations
 {
     [DbContext(typeof(ApiContext))]
-    [Migration("20250711114842_mig1")]
-    partial class mig1
+    [Migration("20250712144506_mig_ev1")]
+    partial class mig_ev1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

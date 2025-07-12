@@ -4,7 +4,7 @@
 
 namespace ApiNight.DataAccessLayer.Migrations
 {
-    public partial class mig1 : Migration
+    public partial class mig_ev1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

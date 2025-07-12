@@ -41,5 +41,35 @@ namespace ApiNight.WebUI.Controllers
             var responseMessage = await client.PostAsync("https://localhost:7196/api/Products", stringContent); // Api ye post isteği gönderiyoruz. PostAsync'ın içinde hem adres var hemde göndereceğimiz içerik
             return RedirectToAction("ProductList");
         }
+
+        public async Task<IActionResult> DeleteProduct(int id)
+        {
+            var client = _httpClientFactory.CreateClient();
+            await client.DeleteAsync("https://localhost:7196/api/Products?id=" + id);
+            return RedirectToAction("ProductList");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> UpdateProduct(int id)
+        {
+            var client = _httpClientFactory.CreateClient();
+            var responseMessage = await client.GetAsync("https://localhost:7196/api/Products/GetProduct?id=" + id);
+            if(responseMessage.IsSuccessStatusCode)
+            {
+                var jsonData = await responseMessage.Content.ReadAsStringAsync();
+                var values = JsonConvert.DeserializeObject<GetProductByIdDto>(jsonData);
+                return View(values);
+            }
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> UpdateProduct(UpdateProductDto updateProductDto)
+        {
+            var client = _httpClientFactory.CreateClient();
+            var jsonData = JsonConvert.SerializeObject(updateProductDto);
+            StringContent stringContent = new StringContent(jsonData, Encoding.UTF8, "application/json");
+            await client.PutAsync("https://localhost:7196/api/Products", stringContent);
+            return RedirectToAction("ProductList");
+        }
     }
 }
